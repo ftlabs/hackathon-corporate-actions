@@ -8,7 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "dotenv": "^6.0.0"
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.0.0",
+    "node-fetch": "^2.2.0"
   }
 }
