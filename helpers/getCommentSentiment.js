@@ -20,7 +20,6 @@ async function getSentiment(textList) {
         console.log(err, err.stack); // an error occurred
         reject();
       } else {
-        console.log('hi', data);           // successful response
         resolve(data);
       }
     });
@@ -31,7 +30,7 @@ async function getCommentSentiment(uuid) {
   const comments = await extractComments(uuid);
   const commentsText = comments.map(c => extractText(c)).slice(0, 25);
   const sentiment = await getSentiment(commentsText);
-  console.log('sentiment', sentiment);
+  console.log(sentiment);
   return sentiment;
 }
 
