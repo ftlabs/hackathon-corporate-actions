@@ -1,16 +1,30 @@
-'use strict';
+const article = require("./helpers/article");
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
+("use strict");
 
-  callback(null, response);
+module.exports.main = async (event, context, callback) => {
+  const data = event.queryStringParameters;
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
+  if (data.uuid) {
+    try {
+      const articleText = await article.getArticleText(data.uuid);
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: articleText,
+          input: event
+        })
+      };
+      callback(null, response);
+    } catch (error) {
+      const response = {
+        statusCode: 400,
+        body: JSON.stringify({
+          message: "error",
+          input: event
+        })
+      };
+      callback(null, response);
+    }
+  }
 };

@@ -6,7 +6,13 @@ provider:
   runtime: nodejs8.10
   stage: dev
   region: eu-west-2
+  profile: hackathon
 
 functions:
-  hello:
+  main:
     handler: handler.main
+    events:
+      - http:
+          path: corporate-actions
+          method: get
+          cors: true
