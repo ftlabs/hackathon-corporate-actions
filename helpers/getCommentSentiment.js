@@ -11,16 +11,19 @@ var comprehend = new AWS.Comprehend({
 });
 
 async function getSentiment(textList) {
-  return comprehend.batchDetectSentiment({
-    LanguageCode: 'en',
-    TextList: textList,
-  }, function(err, data) {
-    if (err) {
-      console.log(err, err.stack); // an error occurred
-    } else {
-      console.log('hi', data);           // successful response
-      return data;
-    }
+  return new Promise((resolve, reject) => {
+    comprehend.batchDetectSentiment({
+      LanguageCode: 'en',
+      TextList: textList,
+    }, function(err, data) {
+      if (err) {
+        console.log(err, err.stack); // an error occurred
+        reject();
+      } else {
+        console.log('hi', data);           // successful response
+        resolve(data);
+      }
+    });
   });
 }
 
